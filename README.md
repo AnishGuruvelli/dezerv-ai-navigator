@@ -1,73 +1,71 @@
-# Welcome to your Lovable project
+# Dezerv AI Compass
 
-## Project info
+## Overview
 
-**URL**: https://lovable.dev/projects/024acfbc-695c-4984-af11-dc1b80176557
+Dezerv AI Compass is a modern, AI-powered wealth management dashboard designed to empower affluent investors with real-time, actionable insights, mitigate behavioral biases, and foster confident decision-making. This project demonstrates a full product case study, from user research and problem framing to solution design, prioritization, and a polished, responsive UI.
 
-## How can I edit this code?
+## Features
 
-There are several ways of editing your application.
+- **Strategic Opportunity Section**: Product vision and market need articulation.
+- **Executive Summary**: Problem, solution, and outcome at a glance.
+- **Customer Identification & Needs**: User segments, goals, and business focus, fully mobile responsive.
+- **Pain Points (Problem Framing)**: 2x2 grid of top user pain points, each with emoji, color, and friction statements.
+- **Proposed Solutions**: 2x2 grid of AI-driven solutions, each mapped to a pain point, with clear value, what it does, and real-world examples.
+- **RICE Prioritization**: Interactive bar chart with color-coded features, value/effort notes, and feature mapping.
+- **Roadmap**: Visual timeline of MVP and advanced feature phases.
+- **Success Metrics**: Engagement, retention, and revenue metrics, in a clean, responsive layout.
+- **Next Steps**: Actionable, interactive cards for future product/tech/UX work.
+- **About Me**: Professional profile, skills, and links, with photo and modern layout.
+- **Animated Navbar**: Smooth underline animation, mobile responsive, with all key sections.
+- **Fully Responsive Design**: All sections and charts adapt to mobile and desktop.
 
-**Use Lovable**
+## Tech Stack
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/024acfbc-695c-4984-af11-dc1b80176557) and start prompting.
+- **React** (TypeScript)
+- **Vite** (build tool)
+- **Tailwind CSS** (utility-first styling)
+- **shadcn/ui** (UI components)
+- **Chart.js** + react-chartjs-2 (data visualization)
 
-Changes made via Lovable will be committed automatically to this repo.
+## Getting Started
 
-**Use your preferred IDE**
+1. **Clone the repository:**
+   ```sh
+   git clone https://github.com/AnishGuruvelli/dezerv-ai-navigator.git
+   cd dezerv-ai-navigator
+   ```
+2. **Install dependencies:**
+   ```sh
+   npm install
+   ```
+3. **Run the development server:**
+   ```sh
+   npm run dev
+   ```
+4. **Open your browser:**
+   Visit [http://localhost:5173](http://localhost:5173) (or the port shown in your terminal).
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## Deployment
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
+You can deploy this project to any static hosting provider (Vercel, Netlify, GitHub Pages, etc.) or your own infrastructure. Build with:
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+npm run build
 ```
+Then serve the `dist/` directory.
 
-**Edit a file directly in GitHub**
+## Project Structure
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+- `src/pages/Index.tsx` — Main product case study and UI
+- `src/components/ui/` — Reusable UI components
+- `src/hooks/` — Custom React hooks
+- `public/` — Static assets (including your professional photo)
 
-**Use GitHub Codespaces**
+## Credits
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+- Product, UX, and case study: [Anish Guruvelli](https://www.linkedin.com/in/anishguruvelli/)
+- UI: shadcn/ui, Tailwind CSS
+- Charts: Chart.js, react-chartjs-2
 
-## What technologies are used for this project?
+## License
 
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/024acfbc-695c-4984-af11-dc1b80176557) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+MIT License. See [LICENSE](LICENSE) for details.
