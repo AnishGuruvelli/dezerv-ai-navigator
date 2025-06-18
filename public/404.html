@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="refresh" content="0; url=/dezerv-ai-navigator/" />
-    <script>
-      // For client-side routing (React Router, etc.)
+    <meta charset="utf-8">
+    <title>404 - Not Found</title>
+    <meta http-equiv="refresh" content="0; URL=/dezerv-ai-navigator/">
+    <script type="text/javascript">
+      // If a user lands on a 404 page, redirect to the base path with the hash
       var l = window.location;
-      var path = l.pathname.replace(/\/+/g, '/').replace('/dezerv-ai-navigator', '');
-      window.location.replace('/dezerv-ai-navigator/#' + path + l.search + l.hash);
+      var hash = l.hash || '';
+      window.location.replace('/dezerv-ai-navigator/' + hash);
     </script>
   </head>
   <body></body>

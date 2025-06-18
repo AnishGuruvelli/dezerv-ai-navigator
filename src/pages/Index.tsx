@@ -8,6 +8,8 @@ import {
   LinearScale,
   BarElement,
   Title,
+  DoughnutController,
+  BarController,
 } from 'chart.js';
 import { Chart } from 'react-chartjs-2';
 import profileImg from '../../public/anishguruvelli.jpg';
@@ -19,7 +21,9 @@ ChartJS.register(
   CategoryScale,
   LinearScale,
   BarElement,
-  Title
+  Title,
+  DoughnutController,
+  BarController
 );
 
 const Index = () => {
