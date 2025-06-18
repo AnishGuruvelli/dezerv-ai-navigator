@@ -1,144 +1,33 @@
 
 import React, { useEffect, useRef, useState } from 'react';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement } from 'chart.js';
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+} from 'chart.js';
+import { Chart } from 'react-chartjs-2';
 
-ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement);
+ChartJS.register(
+  ArcElement,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title
+);
 
 const Index = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeJourney, setActiveJourney] = useState('health');
   const [countersAnimated, setCountersAnimated] = useState(false);
-  
-  const demandChartRef = useRef<HTMLCanvasElement>(null);
-  const kpiChartRef = useRef<HTMLCanvasElement>(null);
-  const demandChartInstance = useRef<any>(null);
-  const kpiChartInstance = useRef<any>(null);
 
   useEffect(() => {
-    // Initialize charts
-    if (demandChartRef.current && !demandChartInstance.current) {
-      const ctx = demandChartRef.current.getContext('2d');
-      if (ctx) {
-        const Chart = (window as any).Chart;
-        demandChartInstance.current = new Chart(ctx, {
-          type: 'doughnut',
-          data: {
-            labels: ['Would Switch for AI Insights', 'Would Not Switch'],
-            datasets: [{
-              label: 'Consumer Demand',
-              data: [84, 16],
-              backgroundColor: ['#10B981', '#E5E7EB'],
-              borderColor: ['#FFFFFF'],
-              borderWidth: 2,
-              hoverOffset: 4
-            }]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            cutout: '70%',
-            plugins: {
-              legend: {
-                position: 'bottom' as const,
-                labels: {
-                  color: '#4B5563',
-                  font: { size: 14 }
-                }
-              },
-              tooltip: {
-                callbacks: {
-                  label: function(context: any) {
-                    return `${context.label}: ${context.raw}%`;
-                  }
-                }
-              }
-            }
-          }
-        });
-      }
-    }
-
-    if (kpiChartRef.current && !kpiChartInstance.current) {
-      const ctx = kpiChartRef.current.getContext('2d');
-      if (ctx) {
-        const Chart = (window as any).Chart;
-        kpiChartInstance.current = new Chart(ctx, {
-          type: 'bar',
-          data: {
-            labels: ['DAU', 'Churn Reduction', 'AUM/User', 'Support Tickets', 'NPS'],
-            datasets: [
-              {
-                label: 'Current Baseline (Illustrative)',
-                data: [100, 100, 100, 100, 100],
-                backgroundColor: '#9CA3AF',
-                borderRadius: 4,
-              },
-              {
-                label: 'Expected Impact with AI Co-Pilot',
-                data: [120, 110, 115, 65, 115],
-                backgroundColor: '#10B981',
-                borderRadius: 4
-              }
-            ]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-              legend: {
-                position: 'top' as const,
-                labels: { color: '#4B5563', font: { size: 14 } }
-              },
-              tooltip: {
-                callbacks: {
-                  label: function(context: any) {
-                    let label = context.dataset.label || '';
-                    if (label) {
-                      label += ': ';
-                    }
-                    let value = context.raw;
-                    let change = value - 100;
-                    if (context.datasetIndex === 0) return 'Baseline: 100%';
-                    
-                    if (context.label === 'Churn Reduction') {
-                      let reduction = context.dataset.data[1] - 100;
-                      return `Expected Impact: -${200 - context.dataset.data[1]}% Churn`;
-                    }
-                    if (context.label === 'Support Tickets') {
-                      let reduction = 100 - context.raw;
-                      return `Expected Impact: -${reduction}% Tickets`;
-                    }
-                    
-                    return `Expected Impact: +${change.toFixed(0)}%`;
-                  }
-                }
-              }
-            },
-            scales: {
-              y: {
-                beginAtZero: true,
-                ticks: {
-                  callback: function(value: any) {
-                    return value + '%';
-                  },
-                  color: '#4B5563'
-                },
-                grid: {
-                  color: '#E5E7EB'
-                }
-              },
-              x: {
-                ticks: { color: '#4B5563', font: { size: 14 } },
-                grid: {
-                  display: false
-                }
-              }
-            }
-          }
-        });
-      }
-    }
-
     // Animate counters on scroll
     const animateCounter = (el: HTMLElement) => {
       const target = parseInt(el.dataset.target || '0');
@@ -194,12 +83,6 @@ const Index = () => {
     sections.forEach(section => sectionObserver.observe(section));
 
     return () => {
-      if (demandChartInstance.current) {
-        demandChartInstance.current.destroy();
-      }
-      if (kpiChartInstance.current) {
-        kpiChartInstance.current.destroy();
-      }
       observer.disconnect();
       sectionObserver.disconnect();
     };
@@ -213,58 +96,167 @@ const Index = () => {
     setMobileMenuOpen(false);
   };
 
+  const demandChartData = {
+    labels: ['Would Switch for AI Insights', 'Would Not Switch'],
+    datasets: [{
+      label: 'Consumer Demand',
+      data: [84, 16],
+      backgroundColor: ['#10B981', '#E5E7EB'],
+      borderColor: ['#FFFFFF'],
+      borderWidth: 2,
+      hoverOffset: 4
+    }]
+  };
+
+  const demandChartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    cutout: '70%',
+    plugins: {
+      legend: {
+        position: 'bottom' as const,
+        labels: {
+          color: '#4B5563',
+          font: { size: 14 }
+        }
+      },
+      tooltip: {
+        callbacks: {
+          label: function(context: any) {
+            return `${context.label}: ${context.raw}%`;
+          }
+        }
+      }
+    }
+  };
+
+  const kpiChartData = {
+    labels: ['DAU', 'Churn Reduction', 'AUM/User', 'Support Tickets', 'NPS'],
+    datasets: [
+      {
+        label: 'Current Baseline (Illustrative)',
+        data: [100, 100, 100, 100, 100],
+        backgroundColor: '#9CA3AF',
+        borderRadius: 4,
+      },
+      {
+        label: 'Expected Impact with AI Co-Pilot',
+        data: [120, 110, 115, 65, 115],
+        backgroundColor: '#10B981',
+        borderRadius: 4
+      }
+    ]
+  };
+
+  const kpiChartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'top' as const,
+        labels: { color: '#4B5563', font: { size: 14 } }
+      },
+      tooltip: {
+        callbacks: {
+          label: function(context: any) {
+            let label = context.dataset.label || '';
+            if (label) {
+              label += ': ';
+            }
+            let value = context.raw;
+            let change = value - 100;
+            if (context.datasetIndex === 0) return 'Baseline: 100%';
+            
+            if (context.label === 'Churn Reduction') {
+              let reduction = context.dataset.data[1] - 100;
+              return `Expected Impact: -${200 - context.dataset.data[1]}% Churn`;
+            }
+            if (context.label === 'Support Tickets') {
+              let reduction = 100 - context.raw;
+              return `Expected Impact: -${reduction}% Tickets`;
+            }
+            
+            return `Expected Impact: +${change.toFixed(0)}%`;
+          }
+        }
+      }
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        ticks: {
+          callback: function(value: any) {
+            return value + '%';
+          },
+          color: '#4B5563'
+        },
+        grid: {
+          color: '#E5E7EB'
+        }
+      },
+      x: {
+        ticks: { color: '#4B5563', font: { size: 14 } },
+        grid: {
+          display: false
+        }
+      }
+    }
+  };
+
   return (
     <div className="bg-slate-50 text-slate-800 font-inter">
-      <style jsx>{`
-        .chart-container { 
-          position: relative; 
-          width: 100%; 
-          max-width: 400px; 
-          margin-left: auto; 
-          margin-right: auto; 
-          height: 300px; 
-          max-height: 400px; 
-        }
-        @media (min-width: 640px) { 
-          .chart-container { height: 350px; } 
-        }
-        .kpi-chart-container { 
-          position: relative; 
-          width: 100%; 
-          height: 400px; 
-          max-height: 500px; 
-        }
-        .nav-link { 
-          transition: color 0.3s ease; 
-        }
-        .nav-link:hover, .nav-link.active { 
-          color: #10B981; 
-        }
-        .phase-card::before { 
-          content: ''; 
-          position: absolute; 
-          top: 50%; 
-          left: -2.05rem; 
-          transform: translateY(-50%); 
-          width: 1.25rem; 
-          height: 1.25rem; 
-          background-color: #F3F4F6; 
-          border: 4px solid #4B5563; 
-          border-radius: 9999px; 
-          z-index: 10; 
-        }
-        .timeline::before { 
-          content: ''; 
-          position: absolute; 
-          top: 0; 
-          bottom: 0; 
-          left: 1rem; 
-          transform: translateX(-50%); 
-          width: 4px; 
-          background-color: #E5E7EB; 
-          border-radius: 2px; 
-        }
-      `}</style>
+      <style dangerouslySetInnerHTML={{
+        __html: `
+          .chart-container { 
+            position: relative; 
+            width: 100%; 
+            max-width: 400px; 
+            margin-left: auto; 
+            margin-right: auto; 
+            height: 300px; 
+            max-height: 400px; 
+          }
+          @media (min-width: 640px) { 
+            .chart-container { height: 350px; } 
+          }
+          .kpi-chart-container { 
+            position: relative; 
+            width: 100%; 
+            height: 400px; 
+            max-height: 500px; 
+          }
+          .nav-link { 
+            transition: color 0.3s ease; 
+          }
+          .nav-link:hover, .nav-link.active { 
+            color: #10B981; 
+          }
+          .phase-card::before { 
+            content: ''; 
+            position: absolute; 
+            top: 50%; 
+            left: -2.05rem; 
+            transform: translateY(-50%); 
+            width: 1.25rem; 
+            height: 1.25rem; 
+            background-color: #F3F4F6; 
+            border: 4px solid #4B5563; 
+            border-radius: 9999px; 
+            z-index: 10; 
+          }
+          .timeline::before { 
+            content: ''; 
+            position: absolute; 
+            top: 0; 
+            bottom: 0; 
+            left: 1rem; 
+            transform: translateX(-50%); 
+            width: 4px; 
+            background-color: #E5E7EB; 
+            border-radius: 2px; 
+          }
+        `
+      }} />
 
       <header id="top" className="sticky top-0 z-50 bg-white/80 backdrop-blur-lg shadow-sm">
         <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -340,7 +332,7 @@ const Index = () => {
               <div className="p-6 rounded-lg">
                 <h3 className="text-center text-xl font-semibold text-slate-800 mb-4">Consumer Demand for AI-Driven Insights</h3>
                 <div className="chart-container">
-                  <canvas ref={demandChartRef}></canvas>
+                  <Chart type="doughnut" data={demandChartData} options={demandChartOptions} />
                 </div>
               </div>
             </div>
@@ -471,7 +463,7 @@ const Index = () => {
           <div className="mt-12 bg-white rounded-lg shadow-lg p-6 md:p-8">
             <h3 className="text-xl font-bold text-center text-slate-800 mb-6">Expected KPI Improvements</h3>
             <div className="kpi-chart-container">
-              <canvas ref={kpiChartRef}></canvas>
+              <Chart type="bar" data={kpiChartData} options={kpiChartOptions} />
             </div>
           </div>
         </section>
