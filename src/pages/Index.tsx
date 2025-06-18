@@ -97,10 +97,10 @@ const Index = () => {
   };
 
   const demandChartData = {
-    labels: ['Would Switch for AI Insights', 'Would Not Switch'],
+    labels: ['Want AI-Driven Insights', 'Traditional Approach'],
     datasets: [{
-      label: 'Consumer Demand',
-      data: [84, 16],
+      label: 'Client Preferences',
+      data: [78, 22],
       backgroundColor: ['#10B981', '#E5E7EB'],
       borderColor: ['#FFFFFF'],
       borderWidth: 2,
@@ -130,53 +130,29 @@ const Index = () => {
     }
   };
 
-  const kpiChartData = {
-    labels: ['DAU', 'Churn Reduction', 'AUM/User', 'Support Tickets', 'NPS'],
+  const riceChartData = {
+    labels: ['Proactive Insights', 'Behavioral Nudges', 'Bite-sized News', 'Weekly Recap', 'AI Chatbot'],
     datasets: [
       {
-        label: 'Current Baseline (Illustrative)',
-        data: [100, 100, 100, 100, 100],
-        backgroundColor: '#9CA3AF',
+        label: 'RICE Score',
+        data: [85, 70, 80, 65, 45],
+        backgroundColor: ['#10B981', '#059669', '#047857', '#065F46', '#064E3B'],
         borderRadius: 4,
-      },
-      {
-        label: 'Expected Impact with AI Co-Pilot',
-        data: [120, 110, 115, 65, 115],
-        backgroundColor: '#10B981',
-        borderRadius: 4
       }
     ]
   };
 
-  const kpiChartOptions = {
+  const riceChartOptions = {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
       legend: {
-        position: 'top' as const,
-        labels: { color: '#4B5563', font: { size: 14 } }
+        display: false
       },
       tooltip: {
         callbacks: {
           label: function(context: any) {
-            let label = context.dataset.label || '';
-            if (label) {
-              label += ': ';
-            }
-            let value = context.raw;
-            let change = value - 100;
-            if (context.datasetIndex === 0) return 'Baseline: 100%';
-            
-            if (context.label === 'Churn Reduction') {
-              let reduction = context.dataset.data[1] - 100;
-              return `Expected Impact: -${200 - context.dataset.data[1]}% Churn`;
-            }
-            if (context.label === 'Support Tickets') {
-              let reduction = 100 - context.raw;
-              return `Expected Impact: -${reduction}% Tickets`;
-            }
-            
-            return `Expected Impact: +${change.toFixed(0)}%`;
+            return `RICE Score: ${context.raw}`;
           }
         }
       }
@@ -184,10 +160,8 @@ const Index = () => {
     scales: {
       y: {
         beginAtZero: true,
+        max: 100,
         ticks: {
-          callback: function(value: any) {
-            return value + '%';
-          },
           color: '#4B5563'
         },
         grid: {
@@ -195,7 +169,7 @@ const Index = () => {
         }
       },
       x: {
-        ticks: { color: '#4B5563', font: { size: 14 } },
+        ticks: { color: '#4B5563', font: { size: 12 } },
         grid: {
           display: false
         }
@@ -219,7 +193,7 @@ const Index = () => {
           @media (min-width: 640px) { 
             .chart-container { height: 350px; } 
           }
-          .kpi-chart-container { 
+          .rice-chart-container { 
             position: relative; 
             width: 100%; 
             height: 400px; 
@@ -262,15 +236,15 @@ const Index = () => {
         <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
-              <span className="font-bold text-xl text-slate-900">Dezerv AI Co-Pilot</span>
+              <span className="font-bold text-xl text-slate-900">Dezerv AI Compass</span>
             </div>
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-4">
-                <a href="#opportunity" className="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600" onClick={handleNavClick}>The Opportunity</a>
+                <a href="#overview" className="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600" onClick={handleNavClick}>Overview</a>
                 <a href="#problem" className="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600" onClick={handleNavClick}>The Problem</a>
-                <a href="#solution" className="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600" onClick={handleNavClick}>The Solution</a>
-                <a href="#impact" className="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600" onClick={handleNavClick}>The Impact</a>
-                <a href="#roadmap" className="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600" onClick={handleNavClick}>The Roadmap</a>
+                <a href="#solution" className="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600" onClick={handleNavClick}>Solution</a>
+                <a href="#prioritization" className="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600" onClick={handleNavClick}>Prioritization</a>
+                <a href="#roadmap" className="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600" onClick={handleNavClick}>Roadmap</a>
               </div>
             </div>
             <div className="md:hidden">
@@ -287,11 +261,11 @@ const Index = () => {
         </nav>
         <div className={`md:hidden ${mobileMenuOpen ? '' : 'hidden'}`}>
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <a href="#opportunity" className="nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-600" onClick={handleNavClick}>The Opportunity</a>
+            <a href="#overview" className="nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-600" onClick={handleNavClick}>Overview</a>
             <a href="#problem" className="nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-600" onClick={handleNavClick}>The Problem</a>
-            <a href="#solution" className="nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-600" onClick={handleNavClick}>The Solution</a>
-            <a href="#impact" className="nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-600" onClick={handleNavClick}>The Impact</a>
-            <a href="#roadmap" className="nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-600" onClick={handleNavClick}>The Roadmap</a>
+            <a href="#solution" className="nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-600" onClick={handleNavClick}>Solution</a>
+            <a href="#prioritization" className="nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-600" onClick={handleNavClick}>Prioritization</a>
+            <a href="#roadmap" className="nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-600" onClick={handleNavClick}>Roadmap</a>
           </div>
         </div>
       </header>
@@ -299,211 +273,332 @@ const Index = () => {
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         <section className="text-center pt-8 pb-16">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight">
-            Revolutionizing Personalized <span className="text-emerald-500">Wealth Management</span>
+            Dezerv AI Compass – Your Intelligent <span className="text-emerald-500">Financial Co-Pilot</span>
           </h1>
           <p className="mt-6 max-w-3xl mx-auto text-lg md:text-xl text-slate-600">
-            A strategic proposal to build the Dezerv AI Financial Co-Pilot — an intelligent, proactive partner designed to enhance user engagement, retention, and financial well-being.
+            Transforming wealth management with proactive, AI-powered insights that help clients make smarter investment decisions and achieve better financial outcomes.
           </p>
         </section>
 
-        <section id="opportunity" className="py-16 bg-white rounded-2xl shadow-lg scroll-mt-20">
+        {/* Executive Summary */}
+        <section className="py-12 bg-gradient-to-r from-emerald-50 to-green-50 rounded-2xl shadow-lg mb-16">
+          <div className="max-w-4xl mx-auto px-6 text-center">
+            <h2 className="text-2xl font-bold text-slate-900 mb-6">🚀 Executive Summary</h2>
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="bg-white p-6 rounded-xl shadow-sm">
+                <h3 className="font-semibold text-red-600 mb-2">Problem</h3>
+                <p className="text-slate-700 text-sm">Dezerv's affluent clients face information overload, behavioral biases, and delayed, generic advice despite its strong data-driven foundation.</p>
+              </div>
+              <div className="bg-white p-6 rounded-xl shadow-sm">
+                <h3 className="font-semibold text-blue-600 mb-2">Solution</h3>
+                <p className="text-slate-700 text-sm">Launch Dezerv AI Compass—an AI-powered feature offering contextual insights, behavioral nudges, and hyper-personalized financial guidance in real-time.</p>
+              </div>
+              <div className="bg-white p-6 rounded-xl shadow-sm">
+                <h3 className="font-semibold text-green-600 mb-2">Outcome</h3>
+                <p className="text-slate-700 text-sm">Increased engagement, higher client retention, improved AUM growth, and enhanced brand differentiation in India's competitive wealth-tech space.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* What is Dezerv */}
+        <section id="overview" className="py-16 bg-white rounded-2xl shadow-lg scroll-mt-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center">
-              <h2 className="text-base font-semibold text-emerald-600 tracking-wide uppercase">The Opportunity</h2>
-              <p className="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">Why AI is a Strategic Imperative Now</p>
-              <p className="mt-4 max-w-2xl mx-auto text-xl text-gray-500">The wealth management landscape is rapidly evolving. Consumer demand for intelligent, personalized financial guidance has reached a critical tipping point, creating a massive opportunity for tech-first leaders like Dezerv.</p>
+              <h2 className="text-base font-semibold text-emerald-600 tracking-wide uppercase">1️⃣ Comprehend the Situation</h2>
+              <p className="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">What is Dezerv?</p>
             </div>
 
-            <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-2">
-              <div className="flex flex-col justify-center items-center text-center p-8">
-                <h3 className="text-2xl font-bold text-slate-800">A Market Ready for Change</h3>
-                <p className="mt-2 text-slate-600">Modern investors demand more than just a platform; they want a partner. A staggering majority are ready to switch providers to get AI-driven, contextualized advice.</p>
-                <div className="mt-6 grid grid-cols-2 gap-4 text-center">
-                  <div>
-                    <span className="block text-4xl font-bold text-emerald-500 stat-counter" data-target="52">0</span>
-                    <span className="block mt-1 text-slate-500">prioritize financial wellness</span>
-                  </div>
-                  <div>
-                    <span className="block text-4xl font-bold text-emerald-500 stat-counter" data-target="70">0</span>
-                    <span className="block mt-1 text-slate-500">want personalized insights</span>
-                  </div>
-                </div>
+            <div class="mt-12 grid gap-8 md:grid-cols-2">
+              <div>
+                <h3 className="text-2xl font-bold text-slate-800 mb-4">About Dezerv</h3>
+                <p className="text-slate-600 leading-relaxed mb-4">
+                  Dezerv is a modern wealth management platform in India that helps people invest in PMS (portfolio management services), mutual funds, bonds, and private assets. It's built with smart technology and has a clean, user-friendly design.
+                </p>
+                <p className="text-slate-600 leading-relaxed">
+                  <strong>The goal?</strong> Help clients grow their wealth through data-driven advice and better returns.
+                </p>
               </div>
-              <div className="p-6 rounded-lg">
-                <h3 className="text-center text-xl font-semibold text-slate-800 mb-4">Consumer Demand for AI-Driven Insights</h3>
-                <div className="chart-container">
-                  <Chart type="doughnut" data={demandChartData} options={demandChartOptions} />
+              <div>
+                <h3 className="text-2xl font-bold text-slate-800 mb-4">Industry Shift & Opportunity</h3>
+                <ul className="space-y-3 text-slate-600">
+                  <li>• Rise of AI robo-advisors (e.g., INDmoney, Zerodha's Nudge layer)</li>
+                  <li>• Clients now expect personalized, real-time guidance, not quarterly PDFs</li>
+                  <li>• Opportunity: Create a proactive, AI-driven co-pilot that strengthens personalization</li>
+                </ul>
+                <div className="mt-6 p-4 bg-emerald-50 rounded-lg">
+                  <p className="text-sm text-emerald-700 font-medium">
+                    Mission: Be the go-to investment partner for affluent Indians using technology and data—not sales tactics.
+                  </p>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        <section id="problem" className="py-16 scroll-mt-20">
-          <div className="text-center">
-            <h2 className="text-base font-semibold text-emerald-600 tracking-wide uppercase">The Problem</h2>
-            <p className="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">Understanding the "Ambitious Investor"</p>
-            <p className="mt-4 max-w-2xl mx-auto text-xl text-gray-500">Our target users are tech-savvy and goal-oriented, but they face significant hurdles in managing their wealth effectively. The AI Co-Pilot is designed to solve these specific pain points.</p>
+        {/* Customer Needs */}
+        <section className="py-16 scroll-mt-20">
+          <div class="text-center mb-12">
+            <h2 className="text-base font-semibold text-emerald-600 tracking-wide uppercase">2️⃣ & 3️⃣ Customer Identification & Needs</h2>
+            <p className="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">Understanding Our Users</p>
           </div>
-          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-              <h4 className="font-bold text-lg text-slate-800">Generic Advice Overload</h4>
-              <p className="mt-2 text-slate-600">Standard, non-personalized advice fails to address unique goals and financial habits, leaving users underserved.</p>
+          
+          <div className="grid md:grid-cols-2 gap-8 mb-12">
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <h3 className="text-xl font-bold text-slate-800 mb-4">User Segments</h3>
+              <ul className="space-y-2 text-slate-600">
+                <li>• Affluent, digitally-savvy investors (core Dezerv customers)</li>
+                <li>• First-time, high-income professionals needing education + guidance</li>
+                <li>• Existing clients expecting more from their advisors due to rising market volatility</li>
+              </ul>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-              <h4 className="font-bold text-lg text-slate-800">Financial Complexity</h4>
-              <p className="mt-2 text-slate-600">Users find it difficult to understand complex products like PMS and private assets, creating a barrier to entry.</p>
+            <div className="p-6 rounded-lg">
+              <h3 className="text-center text-xl font-semibold text-slate-800 mb-4">Client Preferences</h3>
+              <div className="chart-container">
+                <Chart type="doughnut" data={demandChartData} options={demandChartOptions} />
+              </div>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-              <h4 className="font-bold text-lg text-slate-800">Time-Consuming Research</h4>
-              <p className="mt-2 text-slate-600">Keeping up with market changes and portfolio optimization is a significant time commitment many cannot afford.</p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-              <h4 className="font-bold text-lg text-slate-800">Decision Uncertainty</h4>
-              <p className="mt-2 text-slate-600">Conflicting goals or lack of clarity often leads to inaction or suboptimal financial choices.</p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-              <h4 className="font-bold text-lg text-slate-800">Reactive, Not Proactive</h4>
-              <p className="mt-2 text-slate-600">Users desire proactive wellness support that goes beyond investing, helping with daily financial health.</p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-              <h4 className="font-bold text-lg text-slate-800">Onboarding Friction</h4>
-              <p className="mt-2 text-slate-600">High abandonment rates in digital onboarding show a clear need for simpler, more guided user experiences.</p>
+          </div>
+
+          <div className="bg-white p-6 rounded-lg shadow-md">
+            <h3 className="text-xl font-bold text-slate-800 mb-6">Key User Needs</h3>
+            <div className="overflow-x-auto">
+              <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User Need</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Why It Matters</th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200">
+                  <tr>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Proactive, real-time guidance</td>
+                    <td className="px-6 py-4 text-sm text-gray-700">Markets change fast; clients need insights now.</td>
+                  </tr>
+                  <tr>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Behavioral nudges</td>
+                    <td className="px-6 py-4 text-sm text-gray-700">Even smart investors act emotionally.</td>
+                  </tr>
+                  <tr>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Simpler understanding</td>
+                    <td className="px-6 py-4 text-sm text-gray-700">Reports ≠ clarity. Clients want explanations, not just data.</td>
+                  </tr>
+                  <tr>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Personalization</td>
+                    <td className="px-6 py-4 text-sm text-gray-700">One-size-fits-all advice creates churn.</td>
+                  </tr>
+                  <tr>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Light, bite-sized learning</td>
+                    <td className="px-6 py-4 text-sm text-gray-700">Many don't want long whitepapers or full webinars.</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </section>
 
-        <section id="solution" className="py-16 bg-white rounded-2xl shadow-lg scroll-mt-20">
+        {/* Problem Framing */}
+        <section id="problem" className="py-16 bg-white rounded-2xl shadow-lg scroll-mt-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center">
-              <h2 className="text-base font-semibold text-emerald-600 tracking-wide uppercase">The Solution</h2>
-              <p className="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">Meet the Dezerv AI Financial Co-Pilot</p>
-              <p className="mt-4 max-w-3xl mx-auto text-xl text-gray-500">An intelligent financial partner integrated into the Dezerv platform. It leverages three core AI technologies to deliver a hyper-personalized, proactive, and educational experience.</p>
+              <h2 className="text-base font-semibold text-emerald-600 tracking-wide uppercase">4️⃣ Cut (Prioritize) – Problem Framing</h2>
+              <p className="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">Top Pain Points</p>
             </div>
-            
+            <div className="mt-12 grid gap-6 md:grid-cols-3">
+              <div className="bg-red-50 p-6 rounded-lg border-l-4 border-red-400">
+                <h4 className="font-bold text-lg text-red-800">Information Overload</h4>
+                <p className="mt-2 text-red-700">Users receive too much unstructured data and struggle to extract actionable insights.</p>
+              </div>
+              <div className="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400">
+                <h4 className="font-bold text-lg text-orange-800">Emotional Decision-Making</h4>
+                <p className="mt-2 text-orange-700">Behavioral biases hurt long-term results and lead to poor investment timing.</p>
+              </div>
+              <div className="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400">
+                <h4 className="font-bold text-lg text-yellow-800">Delayed Advice</h4>
+                <p className="mt-2 text-yellow-700">Life changes quickly; advisor recommendations don't always keep up with client needs.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Solution */}
+        <section id="solution" class="py-16 scroll-mt-20">
+          <div className="text-center mb-12">
+            <h2 className="text-base font-semibold text-emerald-600 tracking-wide uppercase">5️⃣ List Solutions</h2>
+            <p className="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">Proposed Solutions</p>
+          </div>
+
+          <div className="bg-white p-6 rounded-lg shadow-md mb-8">
+            <div className="overflow-x-auto">
+              <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Goal</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pain Point</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Proposed Solution</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Example</th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200 text-sm">
+                  <tr>
+                    <td className="px-6 py-4 font-medium text-gray-900">Engagement</td>
+                    <td className="px-6 py-4 text-gray-700">Info overload</td>
+                    <td className="px-6 py-4 text-gray-700">Proactive, contextual insights</td>
+                    <td className="px-6 py-4 text-gray-700">"Your portfolio is underweight in mid-cap equity based on current goals. Here's why."</td>
+                  </tr>
+                  <tr>
+                    <td className="px-6 py-4 font-medium text-gray-900">Retention</td>
+                    <td className="px-6 py-4 text-gray-700">Behavioral bias</td>
+                    <td className="px-6 py-4 text-gray-700">Behavioral nudges</td>
+                    <td className="px-6 py-4 text-gray-700">"Clients who stayed invested during corrections gained 11% more over 3 yrs."</td>
+                  </tr>
+                  <tr>
+                    <td className="px-6 py-4 font-medium text-gray-900">Revenue Growth</td>
+                    <td className="px-6 py-4 text-gray-700">Delayed advice</td>
+                    <td className="px-6 py-4 text-gray-700">Timely product recommendations</td>
+                    <td className="px-6 py-4 text-gray-700">"Your idle cash can earn 7.8% in our new short-duration bond fund."</td>
+                  </tr>
+                  <tr>
+                    <td className="px-6 py-4 font-medium text-gray-900">User Education</td>
+                    <td className="px-6 py-4 text-gray-700">Low clarity</td>
+                    <td className="px-6 py-4 text-gray-700">Weekly summaries, bite-sized news</td>
+                    <td className="px-6 py-4 text-gray-700">"Here's what moved your portfolio this week in plain English."</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        {/* RICE Prioritization */}
+        <section id="prioritization" className="py-16 bg-white rounded-2xl shadow-lg scroll-mt-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center">
+              <h2 className="text-base font-semibold text-emerald-600 tracking-wide uppercase">6️⃣ Evaluate Trade-offs (RICE Framework)</h2>
+              <p className="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">Feature Prioritization</p>
+            </div>
             <div className="mt-12">
-              <div className="bg-slate-100 p-6 rounded-xl">
-                <h3 className="text-xl font-bold text-center mb-6 text-slate-800">Illustrative User Journeys</h3>
-                <div className="mb-4 flex justify-center space-x-2 md:space-x-4 border-b border-slate-300">
-                  <button 
-                    onClick={() => handleJourneyTab('health')}
-                    className={`flex-1 md:flex-none text-sm md:text-base py-3 px-4 font-medium border-b-2 ${
-                      activeJourney === 'health' 
-                        ? 'border-emerald-500 text-emerald-600' 
-                        : 'border-transparent text-slate-500 hover:border-slate-400'
-                    }`}
-                  >
-                    Proactive Health Check
-                  </button>
-                  <button 
-                    onClick={() => handleJourneyTab('investment')}
-                    className={`flex-1 md:flex-none text-sm md:text-base py-3 px-4 font-medium border-b-2 ${
-                      activeJourney === 'investment' 
-                        ? 'border-emerald-500 text-emerald-600' 
-                        : 'border-transparent text-slate-500 hover:border-slate-400'
-                    }`}
-                  >
-                    Investment Opportunity
-                  </button>
-                  <button 
-                    onClick={() => handleJourneyTab('query')}
-                    className={`flex-1 md:flex-none text-sm md:text-base py-3 px-4 font-medium border-b-2 ${
-                      activeJourney === 'query' 
-                        ? 'border-emerald-500 text-emerald-600' 
-                        : 'border-transparent text-slate-500 hover:border-slate-400'
-                    }`}
-                  >
-                    Complex Query
-                  </button>
+              <div className="rice-chart-container mb-8">
+                <Chart type="bar" data={riceChartData} options={riceChartOptions} />
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
+                <div className="bg-emerald-50 p-4 rounded-lg">
+                  <h4 className="font-semibold text-emerald-800">🔥 Proactive Insights</h4>
+                  <p className="text-emerald-700">High reach, high impact - Top priority</p>
                 </div>
-
-                <div className="min-h-[200px] p-4">
-                  {activeJourney === 'health' && (
-                    <div>
-                      <p className="text-center text-slate-600">"As an investor, I want proactive alerts on my budget so I can stay on track with my savings goals."</p>
-                      <div className="mt-4 space-y-3">
-                        <div className="flex items-start"><span className="mr-3 text-emerald-500 font-bold">1.</span> User receives a push notification: "AI Co-Pilot: Your spending is trending high. We have suggestions to keep you on track for your Q3 goal."</div>
-                        <div className="flex items-start"><span className="mr-3 text-emerald-500 font-bold">2.</span> User opens the app and enters a chat with the Co-Pilot.</div>
-                        <div className="flex items-start"><span className="mr-3 text-emerald-500 font-bold">3.</span> The AI provides actionable tips, like reducing discretionary spending by a specific amount.</div>
-                      </div>
-                    </div>
-                  )}
-                  {activeJourney === 'investment' && (
-                    <div>
-                      <p className="text-center text-slate-600">"As an investor, I want to know about relevant market opportunities that fit my profile."</p>
-                      <div className="mt-4 space-y-3">
-                        <div className="flex items-start"><span className="mr-3 text-emerald-500 font-bold">1.</span> AI Co-Pilot surfaces a notification in-app: "Market analysis shows a buying opportunity that fits your growth profile."</div>
-                        <div className="flex items-start"><span className="mr-3 text-emerald-500 font-bold">2.</span> AI asks: "Would you like to explore relevant Dezerv funds?"</div>
-                        <div className="flex items-start"><span className="mr-3 text-emerald-500 font-bold">3.</span> User engages, gets a clear explanation of risks and products, and can choose to invest directly.</div>
-                      </div>
-                    </div>
-                  )}
-                  {activeJourney === 'query' && (
-                    <div>
-                      <p className="text-center text-slate-600">"As an investor, I want to understand complex market events and their impact on my portfolio."</p>
-                      <div className="mt-4 space-y-3">
-                        <div className="flex items-start"><span className="mr-3 text-emerald-500 font-bold">1.</span> User types into chat: "Explain how rising interest rates affect my bonds."</div>
-                        <div className="flex items-start"><span className="mr-3 text-emerald-500 font-bold">2.</span> The Co-Pilot provides a concise explanation tailored to the user's actual bond holdings.</div>
-                        <div className="flex items-start"><span className="mr-3 text-emerald-500 font-bold">3.</span> The AI suggests relevant actions or connects the user with a human advisor for a deeper dive.</div>
-                      </div>
-                    </div>
-                  )}
+                <div className="bg-green-50 p-4 rounded-lg">
+                  <h4 className="font-semibold text-green-800">📰 Bite-sized News</h4>
+                  <p className="text-green-700">High confidence, low effort - Quick win</p>
+                </div>
+                <div className="bg-teal-50 p-4 rounded-lg">
+                  <h4 className="font-semibold text-teal-800">🔁 Behavioral Nudges</h4>
+                  <p className="text-teal-700">Medium-high priority</p>
+                </div>
+                <div className="bg-slate-50 p-4 rounded-lg">
+                  <h4 className="font-semibold text-slate-800">📈 Weekly Recap</h4>
+                  <p className="text-slate-700">Medium priority</p>
+                </div>
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <h4 className="font-semibold text-gray-800">🤖 AI Chatbot</h4>
+                  <p className="text-gray-700">Lower priority due to high effort</p>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        <section id="impact" className="py-16 scroll-mt-20">
-          <div className="text-center">
-            <h2 className="text-base font-semibold text-emerald-600 tracking-wide uppercase">The Impact</h2>
-            <p className="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">Driving Quantifiable Value</p>
-            <p className="mt-4 max-w-2xl mx-auto text-xl text-gray-500">The AI Co-Pilot is not just a feature; it's a growth engine. It is projected to deliver significant, measurable improvements across our most critical business metrics.</p>
+        {/* Roadmap */}
+        <section id="roadmap" className="py-16 scroll-mt-20">
+          <div className="text-center mb-12">
+            <h2 className="text-base font-semibold text-emerald-600 tracking-wide uppercase">7️⃣ Final Recommendation & Roadmap</h2>
+            <p className="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">Launch MVP: Dezerv AI Compass</p>
           </div>
-          <div className="mt-12 bg-white rounded-lg shadow-lg p-6 md:p-8">
-            <h3 className="text-xl font-bold text-center text-slate-800 mb-6">Expected KPI Improvements</h3>
-            <div className="kpi-chart-container">
-              <Chart type="bar" data={kpiChartData} options={kpiChartOptions} />
+          <div className="max-w-4xl mx-auto">
+            <div className="relative pl-12 timeline">
+              <div className="mb-10 relative">
+                <div className="phase-card bg-emerald-50 p-6 rounded-lg shadow-sm border-l-4 border-emerald-400">
+                  <p className="text-sm font-semibold text-emerald-600">🔹 Phase 1: Quick Wins (3–6 months)</p>
+                  <h4 className="font-bold text-lg mt-1 text-slate-800">Foundation & Basic Features</h4>
+                  <ul className="mt-2 text-slate-600 space-y-1 text-sm">
+                    <li>• Rule-based contextual alerts (e.g., fund manager change, high AUM churn)</li>
+                    <li>• Weekly summaries with market insights + portfolio health</li>
+                    <li>• Basic nudges (e.g., "Consider rebalancing now due to X.")</li>
+                  </ul>
+                </div>
+              </div>
+              <div className="relative">
+                <div className="phase-card bg-blue-50 p-6 rounded-lg shadow-sm border-l-4 border-blue-400">
+                  <p className="text-sm font-semibold text-blue-600">🔹 Phase 2: Long-term (6–18 months)</p>
+                  <h4 className="font-bold text-lg mt-1 text-slate-800">Advanced AI Features</h4>
+                  <ul className="mt-2 text-slate-600 space-y-1 text-sm">
+                    <li>• LLM-powered assistant for conversational insights</li>
+                    <li>• Predictive analytics for financial planning needs</li>
+                    <li>• Real-time product matching & nudged product flows</li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        <section id="roadmap" className="py-16 bg-white rounded-2xl shadow-lg scroll-mt-20">
+        {/* Success Metrics */}
+        <section className="py-16 bg-white rounded-2xl shadow-lg">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center">
-              <h2 className="text-base font-semibold text-emerald-600 tracking-wide uppercase">The Roadmap</h2>
-              <p className="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">A Phased Path to Innovation</p>
-              <p className="mt-4 max-w-2xl mx-auto text-xl text-gray-500">We will deliver the AI Co-Pilot through a disciplined, phased approach, ensuring rapid value delivery while mitigating risks and gathering user feedback.</p>
+            <div className="text-center mb-12">
+              <h2 className="text-base font-semibold text-emerald-600 tracking-wide uppercase">8️⃣ Success Metrics</h2>
+              <p className="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">Measuring Our Success</p>
             </div>
-            <div className="mt-12 max-w-3xl mx-auto">
-              <div className="relative pl-12 timeline">
-                <div className="mb-10 relative">
-                  <div className="phase-card bg-slate-100 p-6 rounded-lg shadow-sm">
-                    <p className="text-sm font-semibold text-emerald-600">Months 1-3</p>
-                    <h4 className="font-bold text-lg mt-1 text-slate-800">Phase 1: Foundation & Core LLM</h4>
-                    <p className="mt-2 text-slate-600">Establish data infrastructure, integrate a core LLM for basic Q&A, and design initial conversational flows.</p>
-                  </div>
+            <div className="grid md:grid-cols-3 gap-8">
+              <div className="bg-blue-50 p-6 rounded-lg">
+                <h3 className="text-xl font-semibold text-blue-800 mb-3">Engagement</h3>
+                <ul className="text-blue-700 space-y-2 text-sm">
+                  <li>• DAU/WAU of AI Compass</li>
+                  <li>• Time Spent</li>
+                  <li>• CTR on AI alerts</li>
+                </ul>
+              </div>
+              <div className="bg-green-50 p-6 rounded-lg">
+                <h3 className="text-xl font-semibold text-green-800 mb-3">Retention</h3>
+                <ul className="text-green-700 space-y-2 text-sm">
+                  <li>• Churn rate delta (users with vs. without Compass)</li>
+                  <li>• Net Promoter Score (NPS)</li>
+                </ul>
+              </div>
+              <div className="bg-purple-50 p-6 rounded-lg">
+                <h3 className="text-xl font-semibold text-purple-800 mb-3">Revenue & Efficiency</h3>
+                <ul className="text-purple-700 space-y-2 text-sm">
+                  <li>• AUM uplift (AI-influenced)</li>
+                  <li>• Product adoption (via AI nudges)</li>
+                  <li>• Fewer manual advisor touchpoints</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Next Steps */}
+        <section className="py-16 bg-gradient-to-r from-slate-100 to-gray-100 rounded-2xl">
+          <div className="max-w-4xl mx-auto px-6 text-center">
+            <h2 className="text-2xl font-bold text-slate-900 mb-6">9️⃣ Next Steps (If I Were the PM)</h2>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="space-y-4">
+                <div className="bg-white p-4 rounded-lg shadow-sm text-left">
+                  <h4 className="font-semibold text-slate-800">User Interviews</h4>
+                  <p className="text-sm text-slate-600">Validate assumptions on what insights they want and how they want them.</p>
                 </div>
-                <div className="mb-10 relative">
-                  <div className="phase-card bg-slate-100 p-6 rounded-lg shadow-sm">
-                    <p className="text-sm font-semibold text-emerald-600">Months 4-7</p>
-                    <h4 className="font-bold text-lg mt-1 text-slate-800">Phase 2: Predictive Insights & Basic Recs</h4>
-                    <p className="mt-2 text-slate-600">Develop predictive models for financial health alerts and launch a basic recommendation engine for a pilot user group.</p>
-                  </div>
+                <div className="bg-white p-4 rounded-lg shadow-sm text-left">
+                  <h4 className="font-semibold text-slate-800">Data Audit</h4>
+                  <p className="text-sm text-slate-600">Ensure portfolio + user behavior data is structured and ML-ready.</p>
                 </div>
-                <div className="mb-10 relative">
-                  <div className="phase-card bg-slate-100 p-6 rounded-lg shadow-sm">
-                    <p className="text-sm font-semibold text-emerald-600">Months 8-12</p>
-                    <h4 className="font-bold text-lg mt-1 text-slate-800">Phase 3: Advanced Personalization</h4>
-                    <p className="mt-2 text-slate-600">Enhance recommendations to include PMS/private assets, develop portfolio optimization tools, and begin a wider rollout.</p>
-                  </div>
+              </div>
+              <div className="space-y-4">
+                <div className="bg-white p-4 rounded-lg shadow-sm text-left">
+                  <h4 className="font-semibold text-slate-800">UX Mockups</h4>
+                  <p className="text-sm text-slate-600">Test early prototypes with existing clients.</p>
                 </div>
-                <div className="relative">
-                  <div className="phase-card bg-slate-100 p-6 rounded-lg shadow-sm">
-                    <p className="text-sm font-semibold text-emerald-600">Ongoing</p>
-                    <h4 className="font-bold text-lg mt-1 text-slate-800">Phase 4: Continuous Learning</h4>
-                    <p className="mt-2 text-slate-600">Establish MLOps for continuous model improvement, integrate external data, and expand features based on user feedback.</p>
-                  </div>
+                <div className="bg-white p-4 rounded-lg shadow-sm text-left">
+                  <h4 className="font-semibold text-slate-800">Build v0 & Launch</h4>
+                  <p className="text-sm text-slate-600">Prioritize insights that can run on existing infra. Monitor metrics weekly.</p>
                 </div>
               </div>
             </div>
@@ -513,10 +608,18 @@ const Index = () => {
       
       <footer className="bg-slate-800 text-white">
         <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-extrabold tracking-tight">Lead the Future of Wealth Management</h2>
-          <p className="mt-4 max-w-2xl mx-auto text-lg text-slate-300">
-            By investing in the AI Financial Co-Pilot, Dezerv will not just follow the market — it will define the next generation of wealth technology, creating a powerful, sustainable competitive advantage.
-          </p>
+          <h2 className="text-3xl font-extrabold tracking-tight">🔚 Final Words</h2>
+          <div className="mt-6 max-w-3xl mx-auto space-y-4">
+            <p className="text-lg text-slate-300">
+              <strong>Why this matters:</strong> Dezerv's clients don't want "more data." They want "better direction."
+            </p>
+            <p className="text-lg text-slate-300">
+              The AI Compass doesn't replace your advisor—it <strong>supercharges</strong> them.
+            </p>
+            <p className="text-lg text-slate-300">
+              It gives Dezerv the edge to <strong>lead the future of wealth management in India.</strong>
+            </p>
+          </div>
         </div>
       </footer>
     </div>
