@@ -10,6 +10,7 @@ import {
   Title,
 } from 'chart.js';
 import { Chart } from 'react-chartjs-2';
+import profileImg from '../../public/anishguruvelli.jpg';
 
 ChartJS.register(
   ArcElement,
@@ -629,7 +630,7 @@ const Index = () => {
         <section id="about-me" className="py-24 bg-white rounded-2xl shadow-lg mt-20">
           <div className="max-w-6xl mx-auto px-8 flex flex-col md:flex-row items-center gap-16 md:gap-24">
             <div className="flex-shrink-0 flex justify-center w-full md:w-auto mb-10 md:mb-0">
-              <img src="/anishguruvelli.jpg" alt="Anish Guruvelli Professional" className="w-56 h-56 rounded-full object-cover shadow-lg border-8 border-purple-100" />
+              <img src={profileImg} alt="Anish Guruvelli Professional" className="w-56 h-56 rounded-full object-cover shadow-lg border-8 border-purple-100" />
             </div>
             <div className="flex-1 w-full">
               <h2 className="text-3xl font-extrabold text-slate-900 mb-4">About Me</h2>
