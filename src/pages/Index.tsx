@@ -30,7 +30,12 @@ const Index = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeJourney, setActiveJourney] = useState('health');
   const [countersAnimated, setCountersAnimated] = useState(false);
+  const routeRefs = useRef<{ [key: string]: HTMLElement | null }>({});
 
+  const handleNavClick1 = (e) => {
+    e.preventDefault();
+    routeRefs.current['overview']?.scrollIntoView({ behavior: 'smooth' });
+  };
   useEffect(() => {
     // Animate counters on scroll
     const animateCounter = (el: HTMLElement) => {
@@ -96,7 +101,13 @@ const Index = () => {
     setActiveJourney(journeyId);
   };
 
-  const handleNavClick = () => {
+  const handleNavClick = (e) => {
+    e.preventDefault();
+    const href = e.currentTarget.getAttribute('href');
+    if (href && href.startsWith('#')) {
+      const sectionId = href.slice(1);
+      routeRefs.current[sectionId]?.scrollIntoView({ behavior: 'smooth' });
+    }
     setMobileMenuOpen(false);
   };
 
@@ -258,7 +269,7 @@ const Index = () => {
             </div>
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-4">
-                <a href="#overview" className="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600" onClick={handleNavClick}>Overview</a>
+                <div className="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600" onClick={handleNavClick1}>Overview</div>
                 <a href="#problem" className="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600" onClick={handleNavClick}>The Problem</a>
                 <a href="#solution" className="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600" onClick={handleNavClick}>Solution</a>
                 <a href="#prioritization" className="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600" onClick={handleNavClick}>Prioritization</a>
@@ -337,7 +348,7 @@ const Index = () => {
         </section>
 
         {/* What is Dezerv */}
-        <section id="overview" className="py-16 bg-white rounded-2xl shadow-lg scroll-mt-20">
+        <section id="overview" ref={el => (routeRefs.current['overview'] = el)} className="py-16 bg-white rounded-2xl shadow-lg scroll-mt-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center">
               <h2 className="text-base font-semibold text-purple-600 tracking-wide uppercase">1️⃣ Comprehend the Situation</h2>
@@ -409,7 +420,7 @@ const Index = () => {
         </section>
 
         {/* Problem Framing */}
-        <section id="problem" className="py-16 bg-white rounded-2xl shadow-lg scroll-mt-20">
+        <section id="problem" ref={el => (routeRefs.current['problem'] = el)} className="py-16 bg-white rounded-2xl shadow-lg scroll-mt-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center">
               <h2 className="text-base font-semibold text-purple-600 tracking-wide uppercase mb-2">4️⃣ Cut (Prioritize) – Problem Framing</h2>
@@ -441,7 +452,7 @@ const Index = () => {
         </section>
 
         {/* Solution */}
-        <section id="solution" className="py-16 scroll-mt-20">
+        <section id="solution" ref={el => (routeRefs.current['solution'] = el)} className="py-16 scroll-mt-20">
           <div className="text-center mb-12">
             <h2 className="text-base font-semibold text-purple-600 tracking-wide uppercase">5️⃣ Proposed Solutions</h2>
             <p className="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">How Dezerv AI Compass Solves These Pain Points</p>
@@ -495,7 +506,7 @@ const Index = () => {
         </section>
 
         {/* RICE Prioritization */}
-        <section id="prioritization" className="py-16 bg-white rounded-2xl shadow-lg scroll-mt-20">
+        <section id="prioritization" ref={el => (routeRefs.current['prioritization'] = el)} className="py-16 bg-white rounded-2xl shadow-lg scroll-mt-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center">
               <h2 className="text-base font-semibold text-purple-600 tracking-wide uppercase">6️⃣ Evaluate Trade-offs (RICE Framework)</h2>
@@ -532,7 +543,7 @@ const Index = () => {
         </section>
 
         {/* Roadmap */}
-        <section id="roadmap" className="py-16 scroll-mt-20">
+        <section id="roadmap" ref={el => (routeRefs.current['roadmap'] = el)} className="py-16 scroll-mt-20">
           <div className="text-center mb-12">
             <h2 className="text-base font-semibold text-purple-600 tracking-wide uppercase">7️⃣ Final Recommendation & Roadmap</h2>
             <p className="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">Launch MVP: Dezerv AI Compass</p>
@@ -566,7 +577,7 @@ const Index = () => {
         </section>
 
         {/* Success Metrics */}
-        <section id="success-metrics" className="py-16 bg-white rounded-2xl shadow-lg">
+        <section id="success-metrics" ref={el => (routeRefs.current['success-metrics'] = el)} className="py-16 bg-white rounded-2xl shadow-lg">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="text-base font-semibold text-purple-600 tracking-wide uppercase">8️⃣ Success Metrics</h2>
@@ -601,7 +612,7 @@ const Index = () => {
         </section>
 
         {/* Next Steps */}
-        <section id="next-steps" className="py-16 bg-gradient-to-r from-slate-100 to-gray-100 rounded-2xl">
+        <section id="next-steps" ref={el => (routeRefs.current['next-steps'] = el)} className="py-16 bg-gradient-to-r from-slate-100 to-gray-100 rounded-2xl">
           <div className="max-w-4xl mx-auto px-6 text-center">
             <h2 className="text-base font-semibold text-purple-600 tracking-wide uppercase mb-2">9️⃣ NEXT STEPS</h2>
             <p className="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl mb-10">If I Were the PM</p>
@@ -631,7 +642,7 @@ const Index = () => {
         </section>
 
         {/* About Me */}
-        <section id="about-me" className="py-24 bg-white rounded-2xl shadow-lg mt-20">
+        <section id="about-me" ref={el => (routeRefs.current['about-me'] = el)} className="py-24 bg-white rounded-2xl shadow-lg mt-20">
           <div className="max-w-6xl mx-auto px-8 flex flex-col md:flex-row items-center gap-16 md:gap-24">
             <div className="flex-shrink-0 flex justify-center w-full md:w-auto mb-10 md:mb-0">
               <img src={profileImg} alt="Anish Guruvelli Professional" className="w-56 h-56 rounded-full object-cover shadow-lg border-8 border-purple-100" />
