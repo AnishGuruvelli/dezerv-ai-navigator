@@ -322,7 +322,7 @@ const Index = () => {
             <p className="text-lg md:text-xl text-slate-700 mb-6">
             As a Product Manager, I identified a key opportunity to strengthen Dezerv's value proposition through the AI Compass—a strategic feature that delivers real-time insights, reduces behavioral biases, and empowers confident investing. This reflects my strength in turning market needs into high-impact product solutions.
             </p>
-            <a href="#problem" className="inline-block mt-2 px-6 py-2 bg-purple-500 text-white font-semibold rounded-lg shadow hover:bg-purple-600 transition">Explore the Problem I'm Solving →</a>
+            <a href="#problem" className="inline-block mt-2 px-6 py-2 bg-purple-500 text-white font-semibold rounded-lg shadow hover:bg-purple-600 transition" onClick={handleNavClick}>Explore the Problem I'm Solving →</a>
           </div>
         </section>
 
